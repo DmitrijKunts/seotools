@@ -91,15 +91,10 @@
                 </tbody>
             </table>
         </div>
-        <div x-data="{ input: [
-                ['foo', 2],
-                ['bar', 4]
-            ] }">
-            <button x-on:click="$clipboard(input)"
-                class="disabled:opacity-50 disabled:cursor-not-allowed mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                {{ __('Copy to Clipboard') }}
-            </button>
-        </div>
+        <button x-clipboard.raw="{!! $urlsCheckedRaw !!}"
+            class="disabled:opacity-50 disabled:cursor-not-allowed mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            {{ __('Copy to Clipboard') }}
+        </button>
     @endif
 
 

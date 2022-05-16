@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Cache;
 class CheckIndex extends Component
 {
     public $urlsChecked = [];
+    public $urlsCheckedRaw = '';
     public $urlsForCheck = [];
     // public $urls = "ddqc.xyz\nqh8.xyz\nlacefrontwigs.xyz\nmonstmagazine.xyz\nqbse.xyz\nabeh.xyz\nyyrr.xyz\n06h.xyz\nindosex.xyz\nshapegrain.xyz\nvasegiraffe.xyz\nfickfilme.xyz\nkjyy.xyz\nhappynewyear2015.xyz\ntjxl.xyz\ncuteasian.xyz\ngiftsmarble.xyz\nterrabattle.xyz\nsiriussun.xyz\nuaeproperty.xyz";
     // public $urls = "yandex.ru\nddqc.xyz\nqh8.xyz\nlacefrontwigs.xyz\nmonstmagazine.xyz\nqbse.xyz\nabeh.xyz";
@@ -86,6 +87,7 @@ class CheckIndex extends Component
                             return;
                         }
                         $this->urlsChecked[$url] = $res;
+                        $this->urlsCheckedRaw .= "$url\t$res\n";
                     },
                     decaySeconds: 60 * 60 * 24
                 );
@@ -109,6 +111,7 @@ class CheckIndex extends Component
     {
         $this->urlsForCheck = explode("\n", $this->urls);
         $this->urlsChecked = [];
+        $this->urlsCheckedRaw = '';
         $this->progressMsg = '';
         $this->progressPos = 0;
         $this->crawlUrls = true;
