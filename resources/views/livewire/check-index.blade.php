@@ -2,6 +2,8 @@
     <x-slot name="title">{{ __('Google Bulk Check Index') }}</x-slot>
     <x-slot name="header">{{ __('Google Bulk Check Index') }}</x-slot>
 
+
+
     <form wire:submit.prevent="startCheck">
         <div class="p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800"
             role="alert">
@@ -43,6 +45,7 @@
     @endif
 
     @if (count($urlsChecked) > 0)
+
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -87,6 +90,15 @@
 
                 </tbody>
             </table>
+        </div>
+        <div x-data="{ input: [
+                ['foo', 2],
+                ['bar', 4]
+            ] }">
+            <button x-on:click="$clipboard(input)"
+                class="disabled:opacity-50 disabled:cursor-not-allowed mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                {{ __('Copy to Clipboard') }}
+            </button>
         </div>
     @endif
 
