@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Url;
 use Livewire\Component;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Auth;
@@ -68,6 +69,10 @@ class CheckIndex extends Component
                 }
                 $indexed = (int)$xml->response->found;
                 Cache::put($key, $indexed, 60 * 60 * 24);
+
+                $modelUrl = Url::updateOrCreate(['url' => $url]);
+                $modelUrl->index()->create(['val' => $indexed]);
+
                 return $indexed;
             }
         } catch (\Exception $e) {
@@ -76,16 +81,21 @@ class CheckIndex extends Component
         }
     }
 
+    private function getMaxAttempts()
+    {
+        if (Auth::check()) {
+            return Auth::id() ? 999999 : config('app.check_google_index_limit_auth', 100);
+        }
+        if (Auth::guest()) {
+            return config('app.check_google_index_limit_guest', 30);
+        }
+    }
+
     public function checking()
     {
         if ($this->crawlUrls) {
             $key = 'check-index:' . (Auth::check() ? Auth::user() : request()->ip());
-            if (Auth::check()) {
-                $maxAttempts = Auth::id() ? 999999 : config('app.check_google_index_limit_auth', 100);
-            }
-            if (Auth::guest()) {
-                $maxAttempts = config('app.check_google_index_limit_guest', 30);
-            }
+            $maxAttempts = $this->getMaxAttempts();
 
             $startTime = now();
             foreach ($this->urlsForCheck as $url) {

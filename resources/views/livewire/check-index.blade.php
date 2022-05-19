@@ -65,6 +65,9 @@
                         <th scope="col" class="px-6 py-3">
                             Indexed
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            History
+                        </th>
 
                     </tr>
                 </thead>
@@ -72,23 +75,28 @@
                     @foreach ($urlsChecked as $url => $val)
                         <tr
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <th scope="row"
+                            <td scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                                 {{ $loop->iteration }}
-                            </th>
-                            <th scope="row"
+                            </td>
+                            <td scope="row"
                                 class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
                                 <a target="_blank" href="//{{ $url }}"
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                     {{ $url }}
                                 </a>
-                            </th>
+                            </td>
                             <td class="px-6 py-4">
                                 <a target="_blank" href="https://google.com/search?q=site:{{ $url }}"
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                     {{ number_format($val, thousands_separator: ' ') }}
                                 </a>
                             </td>
+                            <td class="px-6 py-4">
+                                <a target="_blank" href="https://google.com/search?q=site:{{ $url }}"
+                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                                    {{ __('View') }}
+                                </a>
                             </td>
                         </tr>
                     @endforeach
