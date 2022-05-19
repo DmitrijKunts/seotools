@@ -93,7 +93,7 @@
                                 </a>
                             </td>
                             <td class="px-6 py-4">
-                                <a target="_blank" href="https://google.com/search?q=site:{{ $url }}"
+                                <a href="{{ route('url-index', [$url]) }}"
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                     {{ __('View') }}
                                 </a>

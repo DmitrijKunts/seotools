@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\CheckIndex;
+use App\Http\Livewire\UrlIndex;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,7 @@ Route::get('/', function () {
 })->name('welcome');
 
 Route::get('/check-index', CheckIndex::class)->name('check-index');
+Route::get('/url-index/{url:url}', UrlIndex::class)->name('url-index');
 
 Route::middleware([
     'auth:sanctum',
