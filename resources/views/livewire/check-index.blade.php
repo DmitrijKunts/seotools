@@ -21,6 +21,11 @@
             </div>
         @endif
 
+        @error('urls')
+            <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                <span class="font-medium">{{ $message }}</span> {{ $errorText }}
+            </div>
+        @enderror
         <textarea wire:model="urls" rows="10" {{ $crawlUrls ? 'disabled' : '' }}
             class="disabled:opacity-50 disabled:cursor-not-allowed block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="{{ __('Urls one per line') }}"></textarea>
@@ -36,7 +41,8 @@
         <div wire:poll.1000ms.keep-alive="checking">
             <div class="flex justify-between mb-1">
                 <span class="text-base font-medium text-blue-700 dark:text-white">{{ $progressMsg }}</span>
-                <span class="text-sm font-medium text-blue-700 dark:text-white">{{ $progressPos }}%</span>
+                <span
+                    class="text-sm font-medium text-blue-700 dark:text-white">{{ number_format($progressPos, 1) }}%</span>
             </div>
             <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
                 <div class="bg-blue-600 h-2.5 rounded-full" style="width: {{ $progressPos }}%"></div>

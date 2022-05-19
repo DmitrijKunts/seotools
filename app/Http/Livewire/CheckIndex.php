@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 class CheckIndex extends Component
 {
@@ -22,6 +23,10 @@ class CheckIndex extends Component
 
     public $progressMsg = '';
     public $progressPos = 0;
+
+    protected $rules = [
+        'urls' => 'required|min:3',
+    ];
 
     public function render()
     {
@@ -74,7 +79,8 @@ class CheckIndex extends Component
 
             $startTime = now();
             foreach ($this->urlsForCheck as $url) {
-                if (isset($this->urlsChecked[$url])) {
+                $url = (string)Str::of($url)->match("/(?:https?(?::\/\/))?((?:www\.)?[a-zA-Z0-9-_\.]+(?:\.[a-zA-Z0-9]{2,})(?:[-a-zA-Z0-9:%_\+.~#?&\/\/=]*))/m");
+                if ($url == '' || isset($this->urlsChecked[$url])) {
                     continue;
                 }
                 $executed = RateLimiter::attempt(
@@ -109,6 +115,7 @@ class CheckIndex extends Component
 
     public function startCheck()
     {
+        $this->validate();
         $this->urlsForCheck = explode("\n", $this->urls);
         $this->urlsChecked = [];
         $this->urlsCheckedRaw = '';
