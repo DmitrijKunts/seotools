@@ -80,9 +80,12 @@ class CheckIndex extends Component
     {
         if ($this->crawlUrls) {
             $key = 'check-index:' . (Auth::check() ? Auth::user() : request()->ip());
-            $maxAttempts = Auth::check() ?
-                config('app.check_google_index_limit_auth', 100) :
-                config('app.check_google_index_limit_guest', 30);
+            if (Auth::check()) {
+                $maxAttempts = Auth::id() ? 999999 : config('app.check_google_index_limit_auth', 100);
+            }
+            if (Auth::guest()) {
+                $maxAttempts = config('app.check_google_index_limit_guest', 30);
+            }
 
             $startTime = now();
             foreach ($this->urlsForCheck as $url) {
