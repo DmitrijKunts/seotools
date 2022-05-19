@@ -28,6 +28,13 @@ class CheckIndex extends Component
         'urls' => 'required|min:3',
     ];
 
+    public function mount()
+    {
+        $this->urls = session('check-index.urls', '');
+        $this->urlsChecked = session('check-index.urls-checked', []);
+        $this->urlsCheckedRaw = session('check-index.urls-checked-raw', '');
+    }
+
     public function render()
     {
         return view('livewire.check-index');
@@ -94,6 +101,10 @@ class CheckIndex extends Component
                         }
                         $this->urlsChecked[$url] = $res;
                         $this->urlsCheckedRaw .= "$url\t$res\n";
+                        session([
+                            'check-index.urls-checked' => $this->urlsChecked,
+                            'check-index.urls-checked-raw' => $this->urlsCheckedRaw,
+                        ]);
                     },
                     decaySeconds: 60 * 60 * 24
                 );
@@ -116,6 +127,12 @@ class CheckIndex extends Component
     public function startCheck()
     {
         $this->validate();
+        session([
+            'check-index.urls' => $this->urls,
+            'check-index.urls-checked' => [],
+            'check-index.urls-checked-raw' => '',
+        ]);
+
         $this->urlsForCheck = explode("\n", $this->urls);
         $this->urlsChecked = [];
         $this->urlsCheckedRaw = '';
