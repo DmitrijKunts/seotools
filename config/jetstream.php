@@ -16,6 +16,8 @@ return [
     |
     */
 
+    'prefix' => '{lang?}',
+
     'stack' => 'livewire',
 
     /*

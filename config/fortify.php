@@ -74,7 +74,7 @@ return [
     |
     */
 
-    'prefix' => '',
+    'prefix' => '{lang?}',
 
     'domain' => null,
 
