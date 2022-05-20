@@ -17,4 +17,17 @@ class Url extends Model
     {
         return $this->hasMany(UrlIndex::class)->orderBy('created_at');
     }
+
+    public function indexOnDate(Carbon $day = null)
+    {
+        if (!$day) {
+            $day = now();
+        }
+        $val = $this->index()->where('created_at', '<=', $day)->first();
+        if ($val === null) {
+            return null;
+        } else {
+            return $val->val;
+        }
+    }
 }

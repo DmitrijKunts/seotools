@@ -8,9 +8,7 @@
         <div class="p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800"
             role="alert">
             <span class="font-medium">{{ __('Indexing Check Limits') }}:</span>
-            {{ __('for a guest 30 urls per day, and for a registered user 100.') }}
-            {{-- <span class="font-medium">Ограничения проверки индексации:</span> для гостя 30 адресов в день, а для
-            зарегистрированного пользователя 100. --}}
+            {{ __('for a guest :lim_guest urls per day, and for a registered user :lim_auth.', compact('lim_guest', 'lim_auth')) }}
         </div>
 
 
@@ -93,7 +91,7 @@
                                 </a>
                             </td>
                             <td class="px-6 py-4">
-                                <a href="{{ route('url-index', [$url]) }}"
+                                <a target="_blank" href="{{ route('url-index', [$url]) }}"
                                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                                     {{ __('View') }}
                                 </a>

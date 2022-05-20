@@ -38,7 +38,10 @@ class CheckIndex extends Component
 
     public function render()
     {
-        return view('livewire.check-index');
+        return view('livewire.check-index')->with([
+            'lim_guest' => config('app.check_google_index_limit_guest'),
+            'lim_auth' => config('app.check_google_index_limit_auth'),
+        ]);
     }
 
     public function checkUrl($url)
@@ -71,7 +74,10 @@ class CheckIndex extends Component
                 Cache::put($key, $indexed, 60 * 60 * 24);
 
                 $modelUrl = Url::updateOrCreate(['url' => $url]);
-                $modelUrl->index()->create(['val' => $indexed]);
+                $latsVal = $modelUrl->indexOnDate();
+                if ($latsVal === null || $latsVal != $indexed) {
+                    $modelUrl->index()->create(['val' => $indexed]);
+                }
 
                 return $indexed;
             }
