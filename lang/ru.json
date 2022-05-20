@@ -84,11 +84,20 @@
     "Logout Other Browser Sessions": "Выйти из других сессий браузера",
     "Please enter your password to confirm you would like to logout of your other browser sessions across all of your devices.": "Введите свой пароль, чтобы подтвердить, что вы хотите выйти из других сеансов браузера на всех ваших устройствах.",
     "Nevermind": "Отменить",
-
-
     "Indexing Check Limits": "Ограничения проверки индексации",
-
-
-
+    "Bulk Google Indexing Checker": "Массовая проверка индексации Google",
+    "Error!": "Ошибка!",
+    "Urls one per line": "URL-адреса, по одному в строке",
+    "Check": "Проверить",
+    "View": "Просмотреть",
+    "Copy to Clipboard": "Скопировать в буфер",
+    "for a guest :lim_guest urls per day, and for a registered user :lim_auth.": "для гостя :lim_guest URL в день, а для зарегистрированного пользователя :lim_auth.",
+    "#": "№",
+    "Indexed": "Индексировано",
+    "History": "История",
+    "Url Index History: :url": "История индекса URL: :url",
+    "Index Value": "Значение индекса",
+    "Bad respone": "Плохой ответ",
+    "Too many attempts!": "Слишком много попыток!",
     "OLLLLLLLLLLLD": "Имя"
 }

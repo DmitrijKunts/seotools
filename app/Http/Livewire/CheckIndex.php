@@ -56,7 +56,7 @@ class CheckIndex extends Component
                 'q' => "site:$url",
             ]);
             if ($response->failed()) {
-                $this->errorText = 'Bad respone';
+                $this->errorText = __('Bad respone');
                 return false;
             }
             if ($response->successful()) {
@@ -67,7 +67,7 @@ class CheckIndex extends Component
                     return false;
                 }
                 if (!isset($xml->response->found)) {
-                    $this->errorText = 'Bad respone';
+                    $this->errorText = __('Bad respone');
                     return false;
                 }
                 $indexed = (int)$xml->response->found;
@@ -131,7 +131,7 @@ class CheckIndex extends Component
                 $this->progressPos = 100 * count($this->urlsChecked) / count($this->urlsForCheck);
 
                 if (!$executed) {
-                    $this->errorText = 'Too many attempts!';
+                    $this->errorText = __('Too many attempts!');
                     $this->crawlUrls = false;
                     return;
                 }

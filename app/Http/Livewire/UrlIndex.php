@@ -27,7 +27,8 @@ class UrlIndex extends Component
             ->withDataLabels()
             ->withoutLegend();
         foreach ($this->url->index as $day) {
-            $columnChartModel = $columnChartModel->addColumn($day->created_at->format('Y-m-d'), $day->val, '#f6ad55');
+            $fd = $day->created_at->settings(['locale' => app()->getLocale()])->isoFormat('l');
+            $columnChartModel = $columnChartModel->addColumn($fd, $day->val, '#f6ad55');
         }
         return view('livewire.url-index')->with(compact('columnChartModel'));
     }

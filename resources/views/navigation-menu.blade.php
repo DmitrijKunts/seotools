@@ -24,7 +24,7 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-jet-nav-link href="{{ route('check-index') }}" :active="request()->routeIs('check-index')">
-                        {{ __('Google Bulk Check Index') }}
+                        {{ __('Bulk Google Indexing Checker') }}
                     </x-jet-nav-link>
                 </div>
             </div>
@@ -238,7 +238,7 @@
                 </x-jet-responsive-nav-link>
             @endauth
             <x-jet-responsive-nav-link href="{{ route('check-index') }}" :active="request()->routeIs('check-index')">
-                {{ __('Google Bulk Check Index') }}
+                {{ __('Bulk Google Indexing Checker') }}
             </x-jet-responsive-nav-link>
 
         </div>

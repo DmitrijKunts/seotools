@@ -1,6 +1,6 @@
 <div>
-    <x-slot name="title">{{ __('Google Bulk Check Index') }}</x-slot>
-    <x-slot name="header">{{ __('Google Bulk Check Index') }}</x-slot>
+    <x-slot name="title">{{ __('Bulk Google Indexing Checker') }}</x-slot>
+    <x-slot name="header">{{ __('Bulk Google Indexing Checker') }}</x-slot>
 
 
 
@@ -55,16 +55,16 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3">
-                            #
+                            {{ __('#') }}
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Url
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Indexed
+                            {{ __('Indexed') }}
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            History
+                            {{ __('History') }}
                         </th>
 
                     </tr>
