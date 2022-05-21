@@ -1928,9 +1928,6 @@ input:checked + .toggle-bg {
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
 }
-.bg-\[url\(\'\/favicon\.png\'\)\] {
-  background-image: url('/favicon.png');
-}
 .bg-cover {
   background-size: cover;
 }
@@ -2885,6 +2882,10 @@ input:checked + .toggle-bg {
 
   .md\:grid {
     display: grid;
+  }
+
+  .md\:w-1\/2 {
+    width: 50%;
   }
 
   .md\:grid-cols-3 {
