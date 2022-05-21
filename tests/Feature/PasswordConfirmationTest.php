@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\URL;
 use Laravel\Jetstream\Features;
 use Tests\TestCase;
 
@@ -14,8 +15,8 @@ class PasswordConfirmationTest extends TestCase
     public function test_confirm_password_screen_can_be_rendered()
     {
         $user = User::factory()->withPersonalTeam()->create();
-
-        $response = $this->actingAs($user)->get('/user/confirm-password');
+        URL::defaults(['lang' => 'en']);
+        $response = $this->actingAs($user)->get('/en/user/confirm-password');
 
         $response->assertStatus(200);
     }
@@ -24,7 +25,7 @@ class PasswordConfirmationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post('/user/confirm-password', [
+        $response = $this->actingAs($user)->post('/en/user/confirm-password', [
             'password' => 'password',
         ]);
 
@@ -36,7 +37,7 @@ class PasswordConfirmationTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post('/user/confirm-password', [
+        $response = $this->actingAs($user)->post('/en/user/confirm-password', [
             'password' => 'wrong-password',
         ]);
 
