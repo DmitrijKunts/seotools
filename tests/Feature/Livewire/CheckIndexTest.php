@@ -5,6 +5,7 @@ namespace Tests\Feature\Livewire;
 use App\Http\Livewire\CheckIndex;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\URL;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -28,12 +29,13 @@ class CheckIndexTest extends TestCase
 
     function test_check_index_page_contains_livewire_component()
     {
-        $this->get('/check-index')->assertSeeLivewire(CheckIndex::class);
+        $this->get('/en/check-index')->assertSeeLivewire(CheckIndex::class);
     }
 
 
     public function test_url_explode()
     {
+        URL::defaults(['lang' => 'en']);
         Livewire::test(CheckIndex::class)
             ->set('urls', 'http://seotools.local/check-index')
             ->call('startCheck')
