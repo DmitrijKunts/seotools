@@ -13,7 +13,7 @@ class SpintaxTest extends TestCase
     /** @test */
     public function the_component_can_render()
     {
-        Livewire::test(Spintax::class)
+        $res = Livewire::test(Spintax::class)
             ->assertStatus(200)
             ->call('process')
             ->assertHasErrors(['input' => 'required'])
@@ -21,6 +21,16 @@ class SpintaxTest extends TestCase
             ->call('process')
             ->assertHasNoErrors('input')
             ->assertNotSet('result', '{1|2|3}')
-            ->assertSet('result', '1');
+            ->assertSet('result', '1')
+            ->set('input', '{1|2}{1|2}{1|2}{1|2}{1|2}{1|2}{1|2}{1|2}{1|2}{1|2}')
+            ->call('process')
+            ->get('result');
+        $this->assertDoesNotMatchRegularExpression('~(1111111111|2222222222)~', $res);
+
+        $res = Livewire::test(Spintax::class)
+            ->set('input', '{1|1{2|2}}')
+            ->call('process')
+            ->get('result');
+        $this->assertMatchesRegularExpression('~(1|12)~', $res);
     }
 }

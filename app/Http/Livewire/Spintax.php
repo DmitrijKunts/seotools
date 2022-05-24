@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Illuminate\Support\Str;
 
 class Spintax extends Component
 {
@@ -16,8 +17,7 @@ class Spintax extends Component
     public function process()
     {
         $this->validate();
-        $this->result = $this->permutation($this->input);
-        //{1|2}3}
+        $this->result = $this->spintax($this->input);
     }
 
     public function render()
@@ -25,22 +25,15 @@ class Spintax extends Component
         return view('livewire.spintax');
     }
 
-    private function permutation($str)
+    private function spintax($str)
     {
-        //{1|1|2222} {1|1|2222} {1|1|2222} {1|1|2222} {1|1|2222} {1|1|2222} {1|1|2222} {1|1|2222} {1|1|2222} {1|1|2222} {1|1|2222} {1|1|2222} {1|1|2222}
-        if (preg_match_all('~\{([^\{}]+)\}~isu', $str, $m)) {
-            foreach ($m[1] as $seq) {
-                $parts = explode('|', $seq);
-                $partsCount = count($parts);
-                if ($partsCount == 1) {
-                    $str = str_replace('{' . $seq . '}', $parts[0], $str);
-                } else {
-                    $ind = rand(0, $partsCount - 1);
-                    $str = str_replace('{' . $seq . '}', $parts[$ind], $str);
-                }
-            }
-        }
+        do {
+            $str = $strNew ?? $str;
+            $strNew = (string)Str::of($str)->replaceMatches('~\{([^\{\}]+)\}~u', function ($match) {
+                return (string)Str::of($match[1])->explode('|')->random();
+            });
+        } while ($strNew != $str);
 
-        return $str;
+        return $strNew;
     }
 }
