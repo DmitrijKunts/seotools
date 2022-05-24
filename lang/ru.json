@@ -106,5 +106,9 @@
     "Comming soon": "Вскоре",
     "Type or paste the phrases one per line. Empty lines are ignored.": "Введите или вставьте фразы по одному на строку. Пустые строки игнорируются.",
     "List #:n": "Список №:n",
+    "Enter text in the format {a|b|c}": "Введите текст в формате {a|b|c}",
+    "Process": "Обработать",
+    "Result": "Результат",
+    "Spintax": "Спинтакс",
     "OLLLLLLLLLLLD": "Имя"
 }
