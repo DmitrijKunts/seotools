@@ -37,7 +37,7 @@ class SEOToolsHandler extends WebhookHandler
     public function checkindex()
     {
         Cache::put($this->genKey(), TelegraphCmd::CheckIndex, 60 * 15);
-        $this->chat->reply('Urls one per line');
+        $this->reply('Urls one per line');
     }
 
     public function combinator()
