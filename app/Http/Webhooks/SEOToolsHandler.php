@@ -3,6 +3,7 @@
 namespace App\Http\Webhooks;
 
 use App\Actions\CheckIndex;
+use App\Actions\Combinator;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -12,7 +13,8 @@ use Illuminate\Support\Str;
 enum TelegraphCmd: string
 {
     case CheckIndex = 'CheckIndex';
-    case Combinator = 'Combinator';
+    case Combinator1 = 'Combinator1';
+    case Combinator2 = 'Combinator2';
     case Spintax = 'Spintax';
 }
 
@@ -44,6 +46,20 @@ class SEOToolsHandler extends WebhookHandler
                 $this->chat->message($response)->send();
                 return;
             }
+
+            if ($cmd == TelegraphCmd::Combinator1) {
+                Cache::put($this->genKey(), TelegraphCmd::Combinator2, 60 * 15);
+                Cache::put($this->genKey() . ':combinator', $text, 60 * 15);
+                $this->chat->message('Enter list #2')->send();
+                return;
+            }
+            if ($cmd == TelegraphCmd::Combinator2) {
+                Cache::forget($this->genKey());
+                $text1 = Cache::get($this->genKey() . ':combinator', '');
+                $res = Combinator::combine([$text1, $text]);
+                $this->chat->message($res)->send();
+                return;
+            }
         }
         Cache::forget($this->genKey());
         // $this->chat->message('Select command')->send();
@@ -59,12 +75,13 @@ class SEOToolsHandler extends WebhookHandler
     public function checkindex()
     {
         Cache::put($this->genKey(), TelegraphCmd::CheckIndex, 60 * 15);
-        $this->chat->message('Urls one per line. Max 10 urls.')->send();
+        $this->chat->message('Bulk Google Indexing Checker. Urls one per line. Max 10 urls.')->send();
     }
 
     public function combinator()
     {
-        $this->chat->message("combinator")->send();
+        Cache::put($this->genKey(), TelegraphCmd::Combinator1, 60 * 15);
+        $this->chat->message("Type or paste the phrases one per line. Empty lines are ignored. List #1")->send();
     }
 
     public function spintax()
