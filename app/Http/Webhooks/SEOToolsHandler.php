@@ -39,7 +39,7 @@ class SEOToolsHandler extends WebhookHandler
                         $response .= $error;
                         break;
                     }
-                    $response .= "{$url}\t{$res}";
+                    $response .= "{$url}\t{$res}\n";
                 }
                 $this->chat->message($response)->send();
                 return;
