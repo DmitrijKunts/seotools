@@ -1,6 +1,6 @@
 <?php
 
-namespace DefStudio\Telegraph\Handlers;
+namespace App\Http\Webhooks;
 
 use DefStudio\Telegraph\DTO\Message;
 

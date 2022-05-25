@@ -1,7 +1,6 @@
 <?php
 
-use DefStudio\Telegraph\Handlers\EmptyWebhookHandler;
-use DefStudio\Telegraph\Handlers\SEOToolsHandler;
+use App\Http\Webhooks\SEOToolsHandler;
 use DefStudio\Telegraph\Telegraph;
 
 return [
@@ -17,7 +16,7 @@ return [
      *
      * For reference, see https://def-studio.github.io/telegraph/webhooks/overview
      */
-    'webhook_handler' => SEOToolsHandler::class,
+    'webhook_handler' =>  SEOToolsHandler::class,
 
     /*
      * If enabled, Telegraph dumps received
