@@ -17,39 +17,39 @@ enum TelegraphCmd: string
 class SEOToolsHandler extends WebhookHandler
 {
 
-    public function genKey()
-    {
-        return 'telegraph:lastcmd:' . $this->chat->chat_id;
-    }
+    // public function genKey()
+    // {
+    //     return 'telegraph:lastcmd:' . $this->chat->chat_id;
+    // }
 
-    protected function handleChatMessage($text): void
-    {
-        $this->chat->message($this->genKey() . '    ' . $text)->send();
-        if ($cmd = Cache::get($this->genKey())) {
-            if ($cmd == TelegraphCmd::CheckIndex) {
-                $this->chat->message($this->genKey() . '   Checking index for ' . $text)->send();
-                return;
-            }
-        }
-        $this->chat->message('Select command')->send();
-    }
+    // protected function handleChatMessage($text): void
+    // {
+    //     $this->chat->message($this->genKey() . '    ' . $text)->send();
+    //     if ($cmd = Cache::get($this->genKey())) {
+    //         if ($cmd == TelegraphCmd::CheckIndex) {
+    //             $this->chat->message($this->genKey() . '   Checking index for ' . $text)->send();
+    //             return;
+    //         }
+    //     }
+    //     $this->chat->message('Select command')->send();
+    // }
 
-    public function checkindex()
-    {
-        Cache::put($this->genKey(), TelegraphCmd::CheckIndex, 60 * 15);
-        $this->reply('Urls one per line');
-    }
+    // public function checkindex()
+    // {
+    //     Cache::put($this->genKey(), TelegraphCmd::CheckIndex, 60 * 15);
+    //     $this->reply('Urls one per line');
+    // }
 
-    public function combinator()
-    {
-        // // $this->chat->message("combinator: dddddddddddd")->send();
-        // $this->reply("notification dismissed");
-        $this->chat->message('hello world')
-            ->keyboard(Keyboard::make()->buttons([
-                Button::make('Check index')->action('checkindex')->param('id', 'checkindex42'),
-                Button::make('Combinator')->action('combinator')->param('id', 'combinator1'),
-                Button::make('Spintax')->action('spintax')->param('id', 'spintax542'),
+    // public function combinator()
+    // {
+    //     // // $this->chat->message("combinator: dddddddddddd")->send();
+    //     // $this->reply("notification dismissed");
+    //     $this->chat->message('hello world')
+    //         ->keyboard(Keyboard::make()->buttons([
+    //             Button::make('Check index')->action('checkindex')->param('id', 'checkindex42'),
+    //             Button::make('Combinator')->action('combinator')->param('id', 'combinator1'),
+    //             Button::make('Spintax')->action('spintax')->param('id', 'spintax542'),
 
-            ]))->send();
-    }
+    //         ]))->send();
+    // }
 }
