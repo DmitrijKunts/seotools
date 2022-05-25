@@ -3,6 +3,8 @@
 namespace App\Http\Webhooks;
 
 use DefStudio\Telegraph\Handlers\WebhookHandler;
+use DefStudio\Telegraph\Keyboard\Button;
+use DefStudio\Telegraph\Keyboard\Keyboard;
 
 class SEOToolsHandler extends WebhookHandler
 {
