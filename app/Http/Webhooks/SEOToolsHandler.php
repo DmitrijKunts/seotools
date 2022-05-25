@@ -7,7 +7,7 @@ use DefStudio\Telegraph\Handlers\WebhookHandler;
 
 class SEOToolsHandler extends WebhookHandler
 {
-    public function chekIndex()
+    public function checkindex()
     {
         $text = $this->message()->text();
         $this->chat->message("Chat ID:" . $text)->send();
