@@ -100,7 +100,7 @@ class SEOToolsHandler extends WebhookHandler
     public function upcmd()
     {
         $this->bot->registerCommands([
-            'checkindex' => 'Check index',
+            'checkindex' => 'Bulk Google Indexing Checker',
             'combinator' => 'Combinator',
             'spintax' => 'Spintax',
         ])->send();
