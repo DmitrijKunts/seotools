@@ -2,12 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Actions\CheckIndex as ActionsCheckIndex;
 use App\Models\Url;
 use Livewire\Component;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class CheckIndex extends Component
@@ -15,8 +14,6 @@ class CheckIndex extends Component
     public $urlsChecked = [];
     public $urlsCheckedRaw = '';
     public $urlsForCheck = [];
-    // public $urls = "ddqc.xyz\nqh8.xyz\nlacefrontwigs.xyz\nmonstmagazine.xyz\nqbse.xyz\nabeh.xyz\nyyrr.xyz\n06h.xyz\nindosex.xyz\nshapegrain.xyz\nvasegiraffe.xyz\nfickfilme.xyz\nkjyy.xyz\nhappynewyear2015.xyz\ntjxl.xyz\ncuteasian.xyz\ngiftsmarble.xyz\nterrabattle.xyz\nsiriussun.xyz\nuaeproperty.xyz";
-    // public $urls = "yandex.ru\nddqc.xyz\nqh8.xyz\nlacefrontwigs.xyz\nmonstmagazine.xyz\nqbse.xyz\nabeh.xyz";
     public $urls = '';
     public $crawlUrls = false;
 
@@ -42,49 +39,6 @@ class CheckIndex extends Component
             'lim_guest' => config('app.check_google_index_limit_guest'),
             'lim_auth' => config('app.check_google_index_limit_auth'),
         ]);
-    }
-
-    public function checkUrl($url)
-    {
-        $key = "index:$url";
-        if (Cache::has($key)) {
-            return Cache::get($key);
-        }
-        try {
-            $response = Http::get(config('app.check_api_url'), [
-                'api_key' => config('app.check_api_key'),
-                'q' => "site:$url",
-            ]);
-            if ($response->failed()) {
-                $this->errorText = __('Bad respone');
-                return false;
-            }
-            if ($response->successful()) {
-
-                $xml = simplexml_load_string($response->body());
-                if (isset($xml->response->error)) {
-                    $this->errorText = (string)$xml->response->error;
-                    return false;
-                }
-                if (!isset($xml->response->found)) {
-                    $this->errorText = __('Bad respone');
-                    return false;
-                }
-                $indexed = (int)$xml->response->found;
-                Cache::put($key, $indexed, 60 * 60 * 24);
-
-                $modelUrl = Url::updateOrCreate(['url' => $url]);
-                $latsVal = $modelUrl->indexOnDate();
-                if ($latsVal === null || $latsVal != $indexed) {
-                    $modelUrl->index()->create(['val' => $indexed]);
-                }
-
-                return $indexed;
-            }
-        } catch (\Exception $e) {
-            $this->errorText = config('app.debug') ? $e->getMessage() : '500 (Internal Server Error)';
-            return false;
-        }
     }
 
     private function getMaxAttempts()
@@ -113,7 +67,8 @@ class CheckIndex extends Component
                     $key,
                     $maxAttempts,
                     function () use ($url) {
-                        $res = $this->checkUrl($url);
+                        // $res = $this->checkUrl($url);
+                        $res = ActionsCheckIndex::checkUrl ($url, fn ($s) => $this->errorText = $s);
                         if ($res === false) {
                             $this->crawlUrls = false;
                             return;
@@ -159,6 +114,5 @@ class CheckIndex extends Component
         $this->progressPos = 0;
         $this->crawlUrls = true;
         $this->errorText = null;
-        // $this->checking();
     }
 }

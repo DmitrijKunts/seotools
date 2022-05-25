@@ -2,10 +2,12 @@
 
 namespace App\Http\Webhooks;
 
+use App\Actions\CheckIndex;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 
 enum TelegraphCmd: string
 {
@@ -27,7 +29,19 @@ class SEOToolsHandler extends WebhookHandler
         if ($cmd = Cache::get($this->genKey())) {
             if ($cmd == TelegraphCmd::CheckIndex) {
                 Cache::forget($this->genKey());
-                $this->chat->message('   Checking index for ' . $text)->send();
+                $response = '';
+                $error = '';
+                foreach (Str::explode("\n")->slice(0, 5) as $url) {
+                    $res = CheckIndex::checkUrl($url, function ($s) use (&$error) {
+                        $error = $s;
+                    });
+                    if ($res === false) {
+                        $response .= $error;
+                        break;
+                    }
+                    $response .= "{$url}\t{$res}";
+                }
+                $this->chat->message($response)->send();
                 return;
             }
         }
