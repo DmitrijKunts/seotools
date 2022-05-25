@@ -3,14 +3,13 @@
 namespace App\Http\Webhooks;
 
 use DefStudio\Telegraph\DTO\Message;
-use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 
 class SEOToolsHandler extends WebhookHandler
 {
     public function checkindex()
     {
-        Telegraph::message('hello world')
+        $this->chat->message('hello world')
         ->keyboard(Keyboard::make()->buttons([
                 Button::make('Delete')->action('delete')->param('id', '42'),
                 Button::make('open')->url('https://test.it'),
