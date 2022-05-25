@@ -7,7 +7,7 @@ use DefStudio\Telegraph\Handlers\WebhookHandler;
 class SEOToolsHandler extends WebhookHandler
 {
 
-    protected function handleChatMessage(Stringable $text): void
+    protected function handleChatMessage($text): void
     {
         $this->chat->keyboard(Keyboard::make()->buttons([
             Button::make('Check index')->action('checkindex'),
