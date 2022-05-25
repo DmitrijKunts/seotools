@@ -27,6 +27,7 @@ class SEOToolsHandler extends WebhookHandler
 
     public function combinator()
     {
-        $this->chat->message("combinator: dddddddddddd")->send();
+        // $this->chat->message("combinator: dddddddddddd")->send();
+        $this->reply("notification dismissed");
     }
 }
