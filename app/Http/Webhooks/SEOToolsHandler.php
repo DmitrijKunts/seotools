@@ -9,7 +9,7 @@ class SEOToolsHandler extends WebhookHandler
 {
     public function checkindex()
     {
-        $text = $this->message()->text();
+        $text = $this->message->text();
         $this->chat->message("Chat ID:" . $text)->send();
     }
 }
