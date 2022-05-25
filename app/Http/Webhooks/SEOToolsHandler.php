@@ -79,5 +79,6 @@ class SEOToolsHandler extends WebhookHandler
             'combinator' => 'Combinator',
             'spintax' => 'Spintax',
         ])->send();
+        $this->chat->message("Command updated!")->send();
     }
 }
