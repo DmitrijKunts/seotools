@@ -21,7 +21,7 @@ enum TelegraphCmd: string
 class SEOToolsHandler extends WebhookHandler
 {
 
-    public function genKey()
+    public function genKey(): string
     {
         return 'telegraph:lastcmd:' . $this->chat->chat_id;
     }
@@ -57,7 +57,7 @@ class SEOToolsHandler extends WebhookHandler
                 Cache::forget($this->genKey());
                 $text1 = Cache::get($this->genKey() . ':combinator', '');
                 $res = Combinator::combine([$text1, $text]);
-                $this->chat->message($res)->send();
+                $this->chat->message($res ?? '')->send();
                 return;
             }
         }
