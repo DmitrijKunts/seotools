@@ -57,7 +57,7 @@ class SEOToolsHandler extends WebhookHandler
                 Cache::forget($this->genKey());
                 $text1 = Cache::get($this->genKey() . ':combinator', '');
                 $res = Combinator::combine([$text1, $text]);
-                $this->chat->message($res ?? '')->send();
+                $this->chat->message(join("\n", $res ?? []))->send();
                 return;
             }
         }
