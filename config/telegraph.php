@@ -22,10 +22,10 @@ return [
      * If enabled, Telegraph dumps received
      * webhook messages to logs
      */
-    'debug_mode' => false,
+    'debug_mode' => true,
 
     /*
-     * Set model class for both TelegraphBot and TelegraphChat, 
+     * Set model class for both TelegraphBot and TelegraphChat,
      * to allow more customization.
      *
      * Bot model must be or extend `DefStudio\Telegraph\Models\TelegraphBot::class`
