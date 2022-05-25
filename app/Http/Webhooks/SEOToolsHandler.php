@@ -14,7 +14,7 @@ class SEOToolsHandler extends WebhookHandler
         $this->chat->message('hello world')
             ->keyboard(Keyboard::make()->buttons([
                 Button::make('Check index')->action('checkindex')->param('id', 'checkindex42'),
-                Button::make('Combinator')->action('combinator')->param('id', 'combinator142'),
+                Button::make('Combinator')->action('combinator'),
                 Button::make('Spintax')->action('spintax')->param('id', 'spintax542'),
 
             ]))->send();
@@ -22,6 +22,11 @@ class SEOToolsHandler extends WebhookHandler
 
     public function checkindex()
     {
-        $this->chat->message("dddddddddddd")->send();
+        $this->chat->message("checkindex: dddddddddddd")->send();
+    }
+
+    public function combinator()
+    {
+        $this->chat->message("combinator: dddddddddddd")->send();
     }
 }
