@@ -71,4 +71,13 @@ class SEOToolsHandler extends WebhookHandler
     {
         $this->chat->message("spintax")->send();
     }
+
+    public function upcmd()
+    {
+        $this->bot->registerCommands([
+            'checkindex' => 'Check index',
+            'combinator' => 'Combinator',
+            'spintax' => 'Spintax',
+        ])->send();
+    }
 }
