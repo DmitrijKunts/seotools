@@ -13,9 +13,9 @@ class SEOToolsHandler extends WebhookHandler
     {
         $this->chat->message('hello world')
             ->keyboard(Keyboard::make()->buttons([
-                Button::make('Check index')->action('checkindex'),
-                Button::make('Combinator')->action('combinator'),
-                Button::make('Spintax')->action('spintax'),
+                Button::make('Check index')->action('/checkindex'),
+                Button::make('Combinator')->action('/combinator'),
+                Button::make('Spintax')->action('/spintax'),
 
             ]))->send();
     }
