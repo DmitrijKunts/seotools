@@ -34,11 +34,12 @@ class SEOToolsHandler extends WebhookHandler
     //     $this->chat->message('Select command')->send();
     // }
 
-    // public function checkindex()
-    // {
-    //     Cache::put($this->genKey(), TelegraphCmd::CheckIndex, 60 * 15);
-    //     $this->reply('Urls one per line');
-    // }
+    public function checkindex()
+    {
+        // Cache::put($this->genKey(), TelegraphCmd::CheckIndex, 60 * 15);
+        // $this->reply('Urls one per line');
+        $this->chat->message('Select command')->send();
+    }
 
     // public function combinator()
     // {
