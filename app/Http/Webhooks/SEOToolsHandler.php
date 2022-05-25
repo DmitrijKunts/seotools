@@ -17,22 +17,23 @@ enum TelegraphCmd: string
 class SEOToolsHandler extends WebhookHandler
 {
 
-    // public function genKey()
-    // {
-    //     return 'telegraph:lastcmd:' . $this->chat->chat_id;
-    // }
+    public function genKey()
+    {
+        return 'telegraph:lastcmd:' . $this->chat->chat_id;
+    }
 
-    // protected function handleChatMessage($text): void
-    // {
-    //     $this->chat->message($this->genKey() . '    ' . $text)->send();
-    //     if ($cmd = Cache::get($this->genKey())) {
-    //         if ($cmd == TelegraphCmd::CheckIndex) {
-    //             $this->chat->message($this->genKey() . '   Checking index for ' . $text)->send();
-    //             return;
-    //         }
-    //     }
-    //     $this->chat->message('Select command')->send();
-    // }
+    protected function handleChatMessage($text): void
+    {
+        $this->chat->message($this->genKey() . '    ' . $text)->send();
+        if ($cmd = Cache::get($this->genKey())) {
+            if ($cmd == TelegraphCmd::CheckIndex) {
+                $this->chat->message($this->genKey() . '   Checking index for ' . $text)->send();
+                return;
+            }
+        }
+        // Cache::forget()
+        $this->chat->message('Select command')->send();
+    }
 
     public function checkindex()
     {
