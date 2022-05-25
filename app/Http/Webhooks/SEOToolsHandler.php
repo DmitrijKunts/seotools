@@ -24,9 +24,10 @@ class SEOToolsHandler extends WebhookHandler
 
     protected function handleChatMessage($text): void
     {
+        $this->chat->message($this->genKey().'    ' . $text)->send();
         if ($cmd = Cache::get($this->genKey())) {
             if ($cmd == TelegraphCmd::CheckIndex) {
-                $this->chat->message('Checking index for ' . $text)->send();
+                $this->chat->message($this->genKey().'   Checking index for ' . $text)->send();
                 return;
             }
         }
