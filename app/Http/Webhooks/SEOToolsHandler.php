@@ -7,27 +7,27 @@ use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use Illuminate\Support\Facades\Cache;
 
-enum TelegraphCmd
+enum TelegraphCmd: string
 {
-    case CheckIndex;
-    case Combinator;
-    case Spintax;
+    case CheckIndex = 'CheckIndex';
+    case Combinator = 'Combinator';
+    case Spintax = 'Spintax';
 }
 
 class SEOToolsHandler extends WebhookHandler
 {
 
-    private function genKey()
+    public function genKey()
     {
         return 'telegraph:lastcmd:' . $this->chat->chat_id;
     }
 
     protected function handleChatMessage($text): void
     {
-        $this->chat->message($this->genKey().'    ' . $text)->send();
+        $this->chat->message($this->genKey() . '    ' . $text)->send();
         if ($cmd = Cache::get($this->genKey())) {
             if ($cmd == TelegraphCmd::CheckIndex) {
-                $this->chat->message($this->genKey().'   Checking index for ' . $text)->send();
+                $this->chat->message($this->genKey() . '   Checking index for ' . $text)->send();
                 return;
             }
         }
