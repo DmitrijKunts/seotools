@@ -31,7 +31,7 @@ class SEOToolsHandler extends WebhookHandler
                 Cache::forget($this->genKey());
                 $response = '';
                 $error = '';
-                foreach (Str::of($text)->explode("\n")->slice(0, 5) as $url) {
+                foreach (Str::of($text)->explode("\n")->slice(0, 10) as $url) {
                     $res = CheckIndex::checkUrl($url, function ($s) use (&$error) {
                         $error = $s;
                     });
@@ -46,26 +46,29 @@ class SEOToolsHandler extends WebhookHandler
             }
         }
         Cache::forget($this->genKey());
-        $this->chat->message('Select command')->send();
+        // $this->chat->message('Select command')->send();
+        $this->chat->message('Select command')
+            ->keyboard(Keyboard::make()->buttons([
+                Button::make('Check index')->action('checkindex'),
+                Button::make('Combinator')->action('combinator'),
+                Button::make('Spintax')->action('spintax'),
+
+            ]))->send();
     }
 
     public function checkindex()
     {
         Cache::put($this->genKey(), TelegraphCmd::CheckIndex, 60 * 15);
-        // $this->reply('Urls one per line');
-        $this->chat->message('Urls one per line')->send();
+        $this->chat->message('Urls one per line. Max 10 urls.')->send();
     }
 
-    // public function combinator()
-    // {
-    //     // // $this->chat->message("combinator: dddddddddddd")->send();
-    //     // $this->reply("notification dismissed");
-    //     $this->chat->message('hello world')
-    //         ->keyboard(Keyboard::make()->buttons([
-    //             Button::make('Check index')->action('checkindex')->param('id', 'checkindex42'),
-    //             Button::make('Combinator')->action('combinator')->param('id', 'combinator1'),
-    //             Button::make('Spintax')->action('spintax')->param('id', 'spintax542'),
+    public function combinator()
+    {
+        $this->chat->message("combinator")->send();
+    }
 
-    //         ]))->send();
-    // }
+    public function spintax()
+    {
+        $this->chat->message("spintax")->send();
+    }
 }
