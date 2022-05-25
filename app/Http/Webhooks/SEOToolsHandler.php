@@ -24,10 +24,10 @@ class SEOToolsHandler extends WebhookHandler
 
     protected function handleChatMessage($text): void
     {
-        $this->chat->message($this->genKey() . '    ' . $text)->send();
         if ($cmd = Cache::get($this->genKey())) {
             if ($cmd == TelegraphCmd::CheckIndex) {
-                $this->chat->message($this->genKey() . '   Checking index for ' . $text)->send();
+                Cache::forget($this->genKey());
+                $this->chat->message('   Checking index for ' . $text)->send();
                 return;
             }
         }
@@ -37,9 +37,9 @@ class SEOToolsHandler extends WebhookHandler
 
     public function checkindex()
     {
-        // Cache::put($this->genKey(), TelegraphCmd::CheckIndex, 60 * 15);
+        Cache::put($this->genKey(), TelegraphCmd::CheckIndex, 60 * 15);
         // $this->reply('Urls one per line');
-        $this->chat->message('Select command')->send();
+        $this->chat->message('Urls one per line')->send();
     }
 
     // public function combinator()
