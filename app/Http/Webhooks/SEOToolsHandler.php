@@ -48,7 +48,7 @@ class SEOToolsHandler extends WebhookHandler
         Cache::forget($this->genKey());
         // $this->chat->message('Select command')->send();
         $this->chat->message('Select command')
-            ->keyboard(Keyboard::make()->buttons([
+            ->keyboard(Keyboard::make()->row([
                 Button::make('Check index')->action('checkindex'),
                 Button::make('Combinator')->action('combinator'),
                 Button::make('Spintax')->action('spintax'),
