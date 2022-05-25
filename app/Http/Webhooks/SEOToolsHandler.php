@@ -45,7 +45,7 @@ class SEOToolsHandler extends WebhookHandler
                 return;
             }
         }
-        // Cache::forget()
+        Cache::forget($this->genKey());
         $this->chat->message('Select command')->send();
     }
 
