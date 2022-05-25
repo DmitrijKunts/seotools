@@ -11,12 +11,13 @@ class SEOToolsHandler extends WebhookHandler
 
     protected function handleChatMessage($text): void
     {
-        $this->chat->keyboard(Keyboard::make()->buttons([
-            Button::make('Check index')->action('checkindex'),
-            Button::make('Combinator')->action('combinator'),
-            Button::make('Spintax')->action('spintax'),
+        $this->chat->message('hello world')
+            ->keyboard(Keyboard::make()->buttons([
+                Button::make('Check index')->action('checkindex'),
+                Button::make('Combinator')->action('combinator'),
+                Button::make('Spintax')->action('spintax'),
 
-        ]))->send();
+            ]))->send();
     }
 
     public function checkindex()
