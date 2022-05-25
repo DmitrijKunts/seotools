@@ -22,7 +22,7 @@ return [
      * If enabled, Telegraph dumps received
      * webhook messages to logs
      */
-    'debug_mode' => true,
+    'debug_mode' => false,
 
     /*
      * Set model class for both TelegraphBot and TelegraphChat,
