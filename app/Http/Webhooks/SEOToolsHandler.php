@@ -3,6 +3,7 @@
 namespace App\Http\Webhooks;
 
 use DefStudio\Telegraph\DTO\Message;
+use DefStudio\Telegraph\Handlers\WebhookHandler;
 
 class SEOToolsHandler extends WebhookHandler
 {
