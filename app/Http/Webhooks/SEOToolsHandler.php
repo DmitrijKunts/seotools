@@ -31,7 +31,7 @@ class SEOToolsHandler extends WebhookHandler
                 Cache::forget($this->genKey());
                 $response = '';
                 $error = '';
-                foreach (Str::explode("\n")->slice(0, 5) as $url) {
+                foreach (Str::of($text)->explode("\n")->slice(0, 5) as $url) {
                     $res = CheckIndex::checkUrl($url, function ($s) use (&$error) {
                         $error = $s;
                     });
