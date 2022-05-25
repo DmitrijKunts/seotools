@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Actions\Spintax as ActionsSpintax;
 use Livewire\Component;
 use Illuminate\Support\Str;
 
@@ -17,23 +18,11 @@ class Spintax extends Component
     public function process()
     {
         $this->validate();
-        $this->result = $this->spintax($this->input);
+        $this->result = ActionsSpintax::spin($this->input);
     }
 
     public function render()
     {
         return view('livewire.spintax');
-    }
-
-    private function spintax($str)
-    {
-        do {
-            $str = $strNew ?? $str;
-            $strNew = (string)Str::of($str)->replaceMatches('~\{([^\{\}]+)\}~u', function ($match) {
-                return (string)Str::of($match[1])->explode('|')->random();
-            });
-        } while ($strNew != $str);
-
-        return $strNew;
     }
 }

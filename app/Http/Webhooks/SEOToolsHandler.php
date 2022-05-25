@@ -4,6 +4,7 @@ namespace App\Http\Webhooks;
 
 use App\Actions\CheckIndex;
 use App\Actions\Combinator;
+use App\Actions\Spintax;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -60,16 +61,22 @@ class SEOToolsHandler extends WebhookHandler
                 $this->chat->message(join("\n", $res ?? []))->send();
                 return;
             }
+
+            if ($cmd == TelegraphCmd::Spintax) {
+                Cache::forget($this->genKey());
+                $this->chat->message(Spintax::spin($text))->send();
+                return;
+            }
         }
         Cache::forget($this->genKey());
-        // $this->chat->message('Select command')->send();
         $this->chat->message('Select command')
-            ->keyboard(Keyboard::make()->row([
-                Button::make('Check index')->action('checkindex'),
-                Button::make('Combinator')->action('combinator'),
-                Button::make('Spintax')->action('spintax'),
+            // ->keyboard(Keyboard::make()->row([
+            //     Button::make('Check index')->action('checkindex'),
+            //     Button::make('Combinator')->action('combinator'),
+            //     Button::make('Spintax')->action('spintax'),
 
-            ]))->send();
+            // ]))
+            ->send();
     }
 
     public function checkindex()
@@ -86,7 +93,8 @@ class SEOToolsHandler extends WebhookHandler
 
     public function spintax()
     {
-        $this->chat->message("spintax")->send();
+        Cache::put($this->genKey(), TelegraphCmd::Spintax, 60 * 15);
+        $this->chat->message("Enter text in the format {a|b| {x|y|z} c}")->send();
     }
 
     public function upcmd()
