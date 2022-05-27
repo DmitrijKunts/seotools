@@ -2,8 +2,6 @@
     <x-slot name="title">{{ __('Bulk Google Indexing Checker') }}</x-slot>
     <x-slot name="header">{{ __('Bulk Google Indexing Checker') }}</x-slot>
 
-
-
     <form wire:submit.prevent="startCheck">
         <div class="p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800"
             role="alert">
@@ -49,59 +47,17 @@
     @endif
 
     @if (count($urlsChecked) > 0)
-
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
-                            {{ __('#') }}
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Url
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            {{ __('Indexed') }}
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            {{ __('History') }}
-                        </th>
+            @php
+                $formaters = [
+                    1 => '<a target="_blank" href="//:cur" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">:cur</a>',
+                    2 => '<a target="_blank" href="https://google.com/search?q=site::other1" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">:cur</a>',
+                    3 => '<a target="_blank" href="' . route('url-index', ':other1') . '" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">' . __('View') . '</a>',
+                ];
+            @endphp
 
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($urlsChecked as $url => $val)
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                            <td scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                                {{ $loop->iteration }}
-                            </td>
-                            <td scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                                <a target="_blank" href="//{{ $url }}"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                    {{ $url }}
-                                </a>
-                            </td>
-                            <td class="px-6 py-4">
-                                <a target="_blank" href="https://google.com/search?q=site:{{ $url }}"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                    {{ number_format($val, thousands_separator: ' ') }}
-                                </a>
-                            </td>
-                            <td class="px-6 py-4">
-                                <a target="_blank" href="{{ route('url-index', [$url]) }}"
-                                    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                    {{ __('View') }}
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
-
-
-                </tbody>
-            </table>
+            <livewire:table-sorting :columns="$columns" :rows="$rows" :formaters="$formaters" :excludeSorting="[3]"
+                :wire:key="'table-sorting-'.count($rows)">
         </div>
         <button x-clipboard.raw="{!! $urlsCheckedRaw !!}"
             class="disabled:opacity-50 disabled:cursor-not-allowed mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">

@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Actions\CheckIndex as ActionsCheckIndex;
-use App\Models\Url;
 use Livewire\Component;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Auth;
@@ -35,9 +34,19 @@ class CheckIndex extends Component
 
     public function render()
     {
+        $columns = [__('#'), 'Url', __('Indexed'), __('History')];
+        $rows = [];
+        $loop = 0;
+        foreach ($this->urlsChecked as $url => $val) {
+            $loop++;
+            $rows[] = [$loop, $url, $val, ''];
+        }
+
         return view('livewire.check-index')->with([
             'lim_guest' => config('app.check_google_index_limit_guest'),
             'lim_auth' => config('app.check_google_index_limit_auth'),
+            'columns' => $columns,
+            'rows' => $rows,
         ]);
     }
 
@@ -68,7 +77,7 @@ class CheckIndex extends Component
                     $maxAttempts,
                     function () use ($url) {
                         // $res = $this->checkUrl($url);
-                        $res = ActionsCheckIndex::checkUrl ($url, fn ($s) => $this->errorText = $s);
+                        $res = ActionsCheckIndex::checkUrl($url, fn ($s) => $this->errorText = $s);
                         if ($res === false) {
                             $this->crawlUrls = false;
                             return;
