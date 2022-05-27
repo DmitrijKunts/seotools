@@ -7,7 +7,7 @@
     <div
         class="mx-auto max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
         <div class="p-8 flex justify-center">
-            {!! QrCode::size(200)->generate('https://t.me/SEOToolsmodernbot') !!}
+            {!! QrCode::size(300)->generate('https://t.me/SEOToolsmodernbot') !!}
         </div>
         <div class="p-5">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
