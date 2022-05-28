@@ -4,3 +4,5 @@
 * Массовая проверка индекса Google через Custom Search Engine Google
 * Комбинатор
 * Спинтакс  https://casecollector.ru/knowledge/spintax-randomizatsiya-teksta/
+
+Рабочий пример https://seotools.codelockerlab.com/
