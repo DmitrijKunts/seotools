@@ -76,7 +76,6 @@ class CheckIndex extends Component
                     $key,
                     $maxAttempts,
                     function () use ($url) {
-                        // $res = $this->checkUrl($url);
                         $res = ActionsCheckIndex::checkUrl($url, fn ($s) => $this->errorText = $s);
                         if ($res === false) {
                             $this->crawlUrls = false;
