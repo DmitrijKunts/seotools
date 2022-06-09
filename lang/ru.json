@@ -111,6 +111,11 @@
     "Result": "Результат",
     "Spintax": "Спинтакс",
     "All functions of the service in the Telegram bot": "Все функции сервиса в Телеграм боте",
+    "Enter the text to be uniqueized.": "Введите текст, который необходимо уникализировать.",
+    "Text uniqueizer": "Уникализатор текста",
+    "Choose a language": "Выберите язык",
+    "Russian": "Русский",
+    "English": "Английский",
     "Connect": "Подключиться",
     "OLLLLLLLLLLLD": "Имя"
 }

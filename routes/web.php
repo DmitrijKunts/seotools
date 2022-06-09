@@ -3,6 +3,7 @@
 use App\Http\Livewire\CheckIndex;
 use App\Http\Livewire\Combine;
 use App\Http\Livewire\Spintax;
+use App\Http\Livewire\UniqueText;
 use App\Http\Livewire\UrlIndex;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,7 @@ Route::get('/check-index', CheckIndex::class)->name('check-index');
 Route::get('/url-index/{url:url}', UrlIndex::class)->name('url-index');
 Route::get('/combinator', Combine::class)->name('combinator');
 Route::get('/spintax', Spintax::class)->name('spintax');
+Route::get('/unique-text', UniqueText::class)->name('unique-text');
 
 Route::middleware([
     'auth:sanctum',
