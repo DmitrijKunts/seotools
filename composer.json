@@ -5,7 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.0.2",
+        "php": "^8.1",
         "asantibanez/livewire-charts": "^2.4",
         "defstudio/telegraph": "^1.12",
         "guzzlehttp/guzzle": "^7.2",
